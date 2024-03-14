@@ -1,66 +1,45 @@
 #ifndef WebSerial_h
 #define WebSerial_h
 
+#define WEBSERIAL_VERSION          "3.0.0"
+#define WEBSERIAL_VERSION_MAJOR    3
+#define WEBSERIAL_VERSION_MINOR    0
+#define WEBSERIAL_VERSION_REVISION 0
+#define WEBSERIAL_FORK_mathieucarbou
+
 #include <functional>
 
-#include "Arduino.h"
-#include "stdlib_noniso.h"
+#include <Arduino.h>
+#include <WiFi.h>
 
-#if defined(ESP8266)
-#define HARDWARE "ESP8266"
-#include "ESP8266WiFi.h"
-#include "ESPAsyncTCP.h"
-#include "ESPAsyncWebServer.h"
-#elif defined(ESP32)
-#define HARDWARE "ESP32"
-#include "AsyncTCP.h"
-#include "ESPAsyncWebServer.h"
-#include "WiFi.h"
+#include <stdlib_noniso.h>
+
+#include <ESPAsyncWebServer.h>
+
+#ifndef WEBSERIAL_MAX_WS_CLIENTS
+#define WEBSERIAL_MAX_WS_CLIENTS DEFAULT_MAX_WS_CLIENTS
 #endif
 
-typedef std::function<void(AsyncWebSocketClient *)> ConnHandler;
-typedef std::function<void(AsyncWebSocketClient *)> DisconnHandler;
-typedef std::function<void(uint8_t *data, size_t len)> RecvMsgHandler;
-typedef std::function<void(AsyncWebSocketClient *, uint8_t *data,
-                           size_t length)>
-    RecvMsgHandlerPlus;
-typedef std::function<void(AsyncWebSocketClient *, uint16_t code,
-                           const char *reason, size_t reason_length)>
-    ErrHandler;
-
-// Uncomment to enable webserial debug mode
-// #define WEBSERIAL_DEBUG
+typedef std::function<void(AsyncWebSocketClient* client, const String& msg)> RecvMsgHandler;
 
 class WebSerialClass : public Print {
- public:
-  void begin(AsyncWebServer *server, const char *url = "/webserial", const String &username = "", const String &password = "");
+  public:
+    void begin(AsyncWebServer* server, const char* url = "/webserial", const String& username = "", const String& password = "");
 
-  void onConnect(ConnHandler callbackFunc);
-  void onDisconnect(DisconnHandler callbackFunc);
-  void onMessage(RecvMsgHandler callbackFunc);
-  void onMessage(RecvMsgHandlerPlus callbackFunc);
-  void onError(ErrHandler callbackFunc);
+    void onMessage(RecvMsgHandler callbackFunc);
 
-  // Print
+    // Print
 
-  size_t write(uint8_t);
-  size_t write(const uint8_t* buffer, size_t size);
+    size_t write(uint8_t);
+    size_t write(const uint8_t* buffer, size_t size);
 
- private:
-  AsyncWebServer *_server;
-  AsyncWebSocket *_ws;
-  ConnHandler _connCallback = NULL;
-  DisconnHandler _disconnCallback = NULL;
-  RecvMsgHandler _recvMsgCallback = NULL;
-  RecvMsgHandlerPlus _recvMsgCallbackPlus = NULL;
-  ErrHandler _errCallback = NULL;
-  String _username;
-  String _password;
-  bool _auth;
-
-#if defined(WEBSERIAL_DEBUG)
-  void DEBUG_WEB_SERIAL(const char *message);
-#endif
+  private:
+    AsyncWebServer* _server;
+    AsyncWebSocket* _ws;
+    RecvMsgHandler _recvMsgCallback = NULL;
+    String _username;
+    String _password;
+    bool _auth;
 };
 
 extern WebSerialClass WebSerial;

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>WebSerial</title>
+    <title>Web Console</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type="text/css">
         div {
@@ -83,9 +83,10 @@
         }
 
         .main {
+            padding-top: 3rem;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             height: 100dvh;
         }
@@ -97,9 +98,9 @@
             border-width: 0.5rem;
             border-radius: 1rem;
             background-color: #fff;
-            max-width: 45rem;
             width: calc(100% - 1rem);
             font-size: medium;
+            margin-top: 2.5rem;
         }
 
         .pannel button {
@@ -162,7 +163,10 @@
 
 <body>
     <div class="section main text-center">
-        <h1>WebSerial</h1>
+        <a href="/">
+            <img id="logo" src="/logo" />
+        </a>
+
         <div class="pannel shadow grid gap-2">
             <div id="control-button">
                 <button class="rounded shadow" onclick="terminalClean()">
@@ -193,7 +197,7 @@
                     </svg>
                 </button>
             </div>
-            <textarea class="w-full rounded" title="record" id="record" cols="30" rows="10" disabled></textarea>
+            <textarea class="w-full rounded" title="record" id="record" cols="30" rows="40" disabled></textarea>
             <div class="flex w-full grid gap-2" id="terminal">
                 <input type="text" name="cmd" id="command-text" class="grow rounded" /><button
                     class="grid justify-items-end rounded shadow" id="command-button">
@@ -203,80 +207,100 @@
         </div>
         <h1 />
     </div>
-    <div class="section footer">
-        <div class="copyright">
-            <div class="float-left"></div>
-            <div class="float-right gray">
-                Powered By<a href="https://www.homeboyc.cn/" class="gray">Atom</a>
-            </div>
-        </div>
-    </div>
 </body>
 <script>
-    let gateway = `ws://${window.location.host+window.location.pathname}ws`;
+    let gateway = `ws://${window.location.host + window.location.pathname}ws`;
     let websocket;
     let textArea = document.getElementById("record");
     let enableFlowLock = false;
     let enableTimestamp = false;
-
-    initWebPage();
+    let pingTimeout;
+    let connectTimeout;
+    let history = [];
+    let historyIdx = 0;
 
     function initWebPage() {
         document.getElementById("command-button").disabled = true;
         document.getElementById("command-text").disabled = true;
-        terminalWrite("[WebSerial] Connecting...\n");
         initWebSocket();
         initButton();
-        trapEnterKeyPress();
+        trapKeyPress();
     }
 
     function initWebSocket() {
-        console.log("Trying to open a WebSocket connection...");
+        clearTimeout(connectTimeout);
+        clearTimeout(pingTimeout);
+        pingTimeout = false;
+        connectTimeout = setTimeout(() => {
+            terminalWrite("[WebSerial] Connect timeout.\n");
+            websocket.close();
+            initWebSocket();
+        }, 3000);
+        terminalWrite("[WebSerial] Connecting...\n");
         websocket = new WebSocket(gateway);
         websocket.onopen = onOpen;
         websocket.onclose = onClose;
         websocket.onmessage = onMessage;
+        websocket.onerror = onError;
     }
 
     function initButton() {
-        document
-            .getElementById("command-button")
-            .addEventListener("click", sendCommand);
+        document.getElementById("command-button").addEventListener("click", sendCommand);
     }
 
-    function trapEnterKeyPress() {
-        document
-            .getElementById("command-text")
-            .addEventListener("keypress", enterPressed);
-    }
+    function trapKeyPress() {
+        document.getElementById("command-text").addEventListener("keypress", (event) => {
+            if (event.code === "Enter") {
+                event.preventDefault();
+                document.getElementById("command-button").click();
+            }
+        });
+        document.addEventListener("keydown", (event) => {
+            if (document.activeElement && document.activeElement.id === 'command-text') {
+                if (event.code === "ArrowUp") {
+                    historyIdx--;
+                    if (historyIdx < 0)
+                        historyIdx = history.length > 0 ? history.length - 1 : 0;
+                    if (historyIdx >= 0 && historyIdx < history.length)
+                        document.getElementById("command-text").value = history[historyIdx];
 
-    function enterPressed(event) {
-        if (event.key === "Enter") {
-            event.preventDefault();
-            document.getElementById("command-button").click();
-        }
+                } else if (event.code === "ArrowDown") {
+                    historyIdx++;
+                    if (historyIdx >= history.length)
+                        historyIdx = 0;
+                    if (historyIdx >= 0 && historyIdx < history.length)
+                        document.getElementById("command-text").value = history[historyIdx];
+                }
+            }
+        });
     }
 
     function onOpen(event) {
-        console.log("Connection opened");
+        clearTimeout(connectTimeout);
         terminalWrite("[WebSerial] Connected...\n");
         document.getElementById("command-button").disabled = false;
         document.getElementById("command-text").disabled = false;
     }
 
-    function onClose(event) {
-        console.log("Connection closed");
-        setTimeout(initWebSocket, 2000);
+    function onError(e) {
+        console.log("[WebSerial] Error!", e);
+        websocket.close();
+    }
+
+    function onClose(e) {
+        console.log("[WebSerial] Connection closed.", e);
     }
 
     function onMessage(event) {
-        console.log("Data Received:");
-        console.log(event.data);
-        terminalWrite(event.data);
+        if (event.data == 'pong') {
+            clearTimeout(pingTimeout);
+            pingTimeout = false;
+        } else {
+            terminalWrite(event.data);
+        }
     }
 
     function terminalWrite(raw) {
-        console.log(enableTimestamp);
         if (enableTimestamp) {
             let now = new Date();
             raw = "[" + now.toLocaleTimeString() + "] " + raw;
@@ -293,8 +317,34 @@
     }
 
     function sendCommand() {
-        websocket.send(document.getElementById("command-text").value);
+        let cmd = document.getElementById("command-text").value;
+        console.log('send command: ', cmd);
+        websocket.send(cmd);
+        history.push(cmd);
+        console.log('history size: ', history.length);
+        if (history, length > 30) {
+            console.log('history cleanup');
+            history.splice(0, history.length - 30);
+            console.log('history size: ', history.length);
+        }
+        historyIdx = history.length;
+        document.getElementById("command-text").value = "";
     }
+
+    setInterval(() => {
+        if (!pingTimeout && websocket.readyState == WebSocket.OPEN) {
+            pingTimeout = setTimeout(() => {
+                terminalWrite("[WebSerial] Ping timeout.\n");
+                websocket.close();
+                initWebSocket();
+            }, 3000);
+            websocket.send("ping");
+        }
+    }, 2000);
+
+    window.addEventListener("DOMContentLoaded", function () {
+        initWebPage();
+    }, false);
 </script>
 
 </html>

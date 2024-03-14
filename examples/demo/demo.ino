@@ -7,13 +7,8 @@
   Author: HomeboyC
 */
 #include <Arduino.h>
-#if defined(ESP8266)
-  #include <ESP8266WiFi.h>
-  #include <ESPAsyncTCP.h>
-#elif defined(ESP32)
-  #include <WiFi.h>
-  #include <AsyncTCP.h>
-#endif
+#include <WiFi.h>
+#include <AsyncTCP.h>
 #include <ESPAsyncWebServer.h>
 #include <WebSerialLite.h>
 
@@ -24,13 +19,9 @@ const char* password = ""; // Your WiFi Password
 
 
 /* Message callback of WebSerial */
-void recvMsg(uint8_t *data, size_t len){
+void recvMsg(AsyncWebSocketClient* client, const String& msg){
   WebSerial.println("Received Data...");
-  String d = "";
-  for(int i=0; i < len; i++){
-    d += char(data[i]);
-  }
-  WebSerial.println(d);
+  WebSerial.println(msg);
 }
 
 void setup() {
