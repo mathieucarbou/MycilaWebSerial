@@ -216,15 +216,22 @@
     let enableTimestamp = false;
     let pingTimeout;
     let connectTimeout;
-    let history = [];
-    let historyIdx = 0;
+    let commandHistory = [];
+    let commandHistoryIdx = 0;
 
     function initWebPage() {
         document.getElementById("command-button").disabled = true;
         document.getElementById("command-text").disabled = true;
+        initCommandHistory();
         initWebSocket();
         initButton();
         trapKeyPress();
+    }
+
+    function initCommandHistory() {
+        const json = localStorage.history;
+        commandHistory = json ? JSON.parse(json) : [];
+        commandHistoryIdx = commandHistory.length;
     }
 
     function initWebSocket() {
@@ -258,18 +265,18 @@
         document.addEventListener("keydown", (event) => {
             if (document.activeElement && document.activeElement.id === 'command-text') {
                 if (event.code === "ArrowUp") {
-                    historyIdx--;
-                    if (historyIdx < 0)
-                        historyIdx = history.length > 0 ? history.length - 1 : 0;
-                    if (historyIdx >= 0 && historyIdx < history.length)
-                        document.getElementById("command-text").value = history[historyIdx];
+                    commandHistoryIdx--;
+                    if (commandHistoryIdx < 0)
+                        commandHistoryIdx = commandHistory.length > 0 ? commandHistory.length - 1 : 0;
+                    if (commandHistoryIdx >= 0 && commandHistoryIdx < commandHistory.length)
+                        document.getElementById("command-text").value = commandHistory[commandHistoryIdx];
 
                 } else if (event.code === "ArrowDown") {
-                    historyIdx++;
-                    if (historyIdx >= history.length)
-                        historyIdx = 0;
-                    if (historyIdx >= 0 && historyIdx < history.length)
-                        document.getElementById("command-text").value = history[historyIdx];
+                    commandHistoryIdx++;
+                    if (commandHistoryIdx >= commandHistory.length)
+                        commandHistoryIdx = 0;
+                    if (commandHistoryIdx >= 0 && commandHistoryIdx < commandHistory.length)
+                        document.getElementById("command-text").value = commandHistory[commandHistoryIdx];
                 }
             }
         });
@@ -320,15 +327,16 @@
         let cmd = document.getElementById("command-text").value;
         console.log('send command: ', cmd);
         websocket.send(cmd);
-        history.push(cmd);
-        console.log('history size: ', history.length);
-        if (history, length > 30) {
+        commandHistory.push(cmd);
+        console.log('history size: ', commandHistory.length);
+        if (commandHistory, length > 20) {
             console.log('history cleanup');
-            history.splice(0, history.length - 30);
-            console.log('history size: ', history.length);
+            commandHistory.splice(0, commandHistory.length - 20);
+            console.log('history size: ', commandHistory.length);
         }
-        historyIdx = history.length;
+        commandHistoryIdx = commandHistory.length;
         document.getElementById("command-text").value = "";
+        localStorage.history = JSON.stringify(commandHistory);
     }
 
     setInterval(() => {
