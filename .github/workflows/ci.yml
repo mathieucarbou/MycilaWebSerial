@@ -47,7 +47,7 @@ jobs:
         run: ARDUINO_LIBRARY_ENABLE_UNSAFE_INSTALL=true arduino-cli lib install --git-url https://github.com/mathieucarbou/esphome-AsyncTCP#v2.1.1
 
       - name: Install ESP Async WebServer
-        run: ARDUINO_LIBRARY_ENABLE_UNSAFE_INSTALL=true arduino-cli lib install --git-url https://github.com/mathieucarbou/ESPAsyncWebServer#v2.8.0
+        run: ARDUINO_LIBRARY_ENABLE_UNSAFE_INSTALL=true arduino-cli lib install --git-url https://github.com/mathieucarbou/ESPAsyncWebServer#v2.8.1
 
       - name: Build Demo
         run: arduino-cli compile --library . --warnings all -b ${{ matrix.board }} "examples/demo/demo.ino"
@@ -64,8 +64,10 @@ jobs:
         include:
           - platform: espressif32
             board: esp32dev
-            eeprom: true
-            softwareserial: false
+            opts:
+          - platform: espressif32
+            board: esp32dev
+            opts: "--project-option 'platform_packages=platformio/framework-arduinoespressif32 @ https://github.com/espressif/arduino-esp32.git#3.0.0-alpha3, platform_packages=platformio/framework-arduinoespressif32-libs @ https://github.com/espressif/esp32-arduino-libs.git#idf-release/v5.1'"
 
     steps:
       - name: Checkout
@@ -82,7 +84,7 @@ jobs:
       - name: Set up Python 3.x
         uses: actions/setup-python@v5
         with:
-          python-version: '3.x'
+          python-version: "3.x"
 
       - name: Install PlatformIO
         run: pip install platformio
@@ -91,7 +93,7 @@ jobs:
         run: platformio platform install ${{ matrix.platform }}
 
       - name: Build Demo
-        run: platformio ci "examples/demo/demo.ino" -l '.' -b ${{ matrix.board }}
+        run: platformio ci "examples/demo/demo.ino" -l '.' -b ${{ matrix.board }} ${{ matrix.opts }}
 
       - name: Build Demo AP
-        run: platformio ci "examples/demo_ap/demo_ap.ino" -l '.' -b ${{ matrix.board }}
+        run: platformio ci "examples/demo_ap/demo_ap.ino" -l '.' -b ${{ matrix.board }} ${{ matrix.opts }}
