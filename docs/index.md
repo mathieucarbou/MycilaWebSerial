@@ -35,4 +35,4 @@ This fork is based on [asjdf/WebSerialLite](https://github.com/asjdf/WebSerialLi
 
 ## Dependencies
 
-- [mathieucarbou/ESPAsyncWebServer](https://github.com/mathieucarbou/ESPAsyncWebServer) - v2.7.0
+- [mathieucarbou/ESPAsyncWebServer](https://github.com/mathieucarbou/ESPAsyncWebServer) - v2.8.0
