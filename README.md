@@ -16,6 +16,10 @@ This fork is based on [asjdf/WebSerialLite](https://github.com/asjdf/WebSerialLi
 - Fixes for web socket message cleanup
 - Fixed to reconnect logic in the UI
 - Command history (up/down arrow keys)
+- Support logo, fallback to title if not found.
+
+To add a logo, add a handler for `/logo` to serve your logo in the image format you want, gzipped or not. 
+You can use the [ESP32 embedding mechanism](https://docs.platformio.org/en/latest/platforms/espressif32.html).
 
 ## Preview
 
