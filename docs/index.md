@@ -12,11 +12,11 @@ This fork is based on [asjdf/WebSerialLite](https://github.com/asjdf/WebSerialLi
 
 - Removed ESP8266 support
 - Simplified callbacks
-- Fixes UI
-- Fixes for web socket message cleanup
-- Fixed to reconnect logic in the UI
-- Command history (up/down arrow keys)
-- Support logo, fallback to title if not found.
+- Fixed UI
+- Fixed Web Socket auto reconnect
+- Fixed Web Socket client cleanup (See `WEBSERIAL_MAX_WS_CLIENTS`)
+- Command history (up/down arrow keys) saved in local storage
+- Support logo and fallback to title if not found.
 
 To add a logo, add a handler for `/logo` to serve your logo in the image format you want, gzipped or not. 
 You can use the [ESP32 embedding mechanism](https://docs.platformio.org/en/latest/platforms/espressif32.html).
