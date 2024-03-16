@@ -83,7 +83,7 @@
         }
 
         .main {
-            padding-top: 3rem;
+            /* padding-top: 3rem; */
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
@@ -163,8 +163,9 @@
 
 <body>
     <div class="section main text-center">
+        <h1 id="title" style="display: none;">Web Console</h1>
         <a href="/">
-            <img id="logo" src="/logo" />
+            <img id="logo" src="/logo" onerror="removeLogo();" />
         </a>
 
         <div class="pannel shadow grid gap-2">
@@ -218,6 +219,11 @@
     let connectTimeout;
     let commandHistory = [];
     let commandHistoryIdx = 0;
+
+    function removeLogo() {
+        document.getElementById("logo").remove();
+        document.getElementById("title").style.display = "block";
+    }
 
     function initWebPage() {
         document.getElementById("command-button").disabled = true;
