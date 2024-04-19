@@ -17,6 +17,7 @@ This fork is based on [asjdf/WebSerialLite](https://github.com/asjdf/WebSerialLi
 - Fixed Web Socket client cleanup (See `WEBSERIAL_MAX_WS_CLIENTS`)
 - Command history (up/down arrow keys) saved in local storage
 - Support logo and fallback to title if not found.
+- Arduino 3 / ESP-IDF 5.1 Compatibility
 
 To add a logo, add a handler for `/logo` to serve your logo in the image format you want, gzipped or not. 
 You can use the [ESP32 embedding mechanism](https://docs.platformio.org/en/latest/platforms/espressif32.html).
