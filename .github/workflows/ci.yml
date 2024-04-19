@@ -21,9 +21,10 @@ jobs:
         include:
           - core: esp32:esp32
             board: esp32:esp32:esp32
-            eeprom: true
-            softwareserial: false
-            index_url: https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
+            index_url: https://espressif.github.io/arduino-esp32/package_esp32_index.json
+          - core: esp32:esp32
+            board: esp32:esp32:esp32
+            index_url: https://espressif.github.io/arduino-esp32/package_esp32_dev_index.json
 
     steps:
       - name: Checkout
@@ -43,11 +44,11 @@ jobs:
       - name: Install core
         run: arduino-cli core install --additional-urls "${{ matrix.index_url }}" ${{ matrix.core }}
 
-      - name: Install AsyncTCP-esphome
-        run: ARDUINO_LIBRARY_ENABLE_UNSAFE_INSTALL=true arduino-cli lib install --git-url https://github.com/mathieucarbou/esphome-AsyncTCP#v2.1.1
+      - name: Install Async TCP
+        run: ARDUINO_LIBRARY_ENABLE_UNSAFE_INSTALL=true arduino-cli lib install --git-url https://github.com/mathieucarbou/AsyncTCP#v3.0.0
 
       - name: Install ESP Async WebServer
-        run: ARDUINO_LIBRARY_ENABLE_UNSAFE_INSTALL=true arduino-cli lib install --git-url https://github.com/mathieucarbou/ESPAsyncWebServer#v2.9.0
+        run: ARDUINO_LIBRARY_ENABLE_UNSAFE_INSTALL=true arduino-cli lib install --git-url https://github.com/mathieucarbou/ESPAsyncWebServer#v2.9.2
 
       - name: Build Demo
         run: arduino-cli compile --library . --warnings all -b ${{ matrix.board }} "examples/demo/demo.ino"
@@ -67,7 +68,7 @@ jobs:
             opts:
           - platform: espressif32
             board: esp32dev
-            opts: "--project-option 'platform_packages=platformio/framework-arduinoespressif32 @ https://github.com/espressif/arduino-esp32.git#3.0.0-alpha3, platform_packages=platformio/framework-arduinoespressif32-libs @ https://github.com/espressif/esp32-arduino-libs.git#idf-release/v5.1'"
+            opts: "--project-option 'platform_packages=platformio/framework-arduinoespressif32 @ https://github.com/espressif/arduino-esp32.git#3.0.0-rc1, platform_packages=platformio/framework-arduinoespressif32-libs @ https://github.com/espressif/esp32-arduino-libs.git#idf-release/v5.1'"
 
     steps:
       - name: Checkout
