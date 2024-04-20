@@ -50,5 +50,9 @@ void loop() {
     // which means it will cost 7 sending buffer.
     WebSerial.println(WiFi.localIP().toString());
     WebSerial.printf("Millis=%lu\n", millis());
+#if ESP_IDF_VERSION_MAJOR < 5
     WebSerial.printf("Free heap=[%u]\n", ESP.getFreeHeap());
+#else
+  WebSerial.printf("Free heap=[%lu]\n", ESP.getFreeHeap());
+#endif
 }
