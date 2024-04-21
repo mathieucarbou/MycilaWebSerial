@@ -1,6 +1,6 @@
 {
   "name": "WebSerialLite",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "keywords": "WebSerial, serial, monitor, ESP8266, ESP32, webpage, websocket, wireless",
   "description": "WebSerial is a webpage based Serial Monitor to log, monitor, or debug your code remotely.",
   "homepage": "https://github.com/mathieucarbou/WebSerialLite",
@@ -28,7 +28,7 @@
     {
       "owner": "mathieucarbou",
       "name": "ESP Async WebServer",
-      "version": "^2.9.2",
+      "version": "^2.9.3",
       "platforms": "espressif32"
     }
   ],
