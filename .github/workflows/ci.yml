@@ -45,10 +45,10 @@ jobs:
         run: arduino-cli core install --additional-urls "${{ matrix.index_url }}" ${{ matrix.core }}
 
       - name: Install Async TCP
-        run: ARDUINO_LIBRARY_ENABLE_UNSAFE_INSTALL=true arduino-cli lib install --git-url https://github.com/mathieucarbou/AsyncTCP#v3.0.2
+        run: ARDUINO_LIBRARY_ENABLE_UNSAFE_INSTALL=true arduino-cli lib install --git-url https://github.com/mathieucarbou/AsyncTCP#v3.1.2
 
       - name: Install ESP Async WebServer
-        run: ARDUINO_LIBRARY_ENABLE_UNSAFE_INSTALL=true arduino-cli lib install --git-url https://github.com/mathieucarbou/ESPAsyncWebServer#v2.9.3
+        run: ARDUINO_LIBRARY_ENABLE_UNSAFE_INSTALL=true arduino-cli lib install --git-url https://github.com/mathieucarbou/ESPAsyncWebServer#v2.9.4
 
       - name: Build Demo
         run: arduino-cli compile --library . --warnings all -b ${{ matrix.board }} "examples/demo/demo.ino"
