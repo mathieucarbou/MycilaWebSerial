@@ -24,7 +24,7 @@ typedef std::function<void(AsyncWebSocketClient* client, const String& msg)> Rec
 
 class WebSerialClass : public Print {
   public:
-    void begin(AsyncWebServer* server, const char* url = "/webserial", const String& username = "", const String& password = "");
+    void begin(AsyncWebServer& server, const char* url = "/webserial", const String& username = "", const String& password = "");
 
     void onMessage(RecvMsgHandler callbackFunc);
 

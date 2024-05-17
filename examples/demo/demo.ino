@@ -34,7 +34,7 @@ void setup() {
   Serial.print("IP Address: ");
   Serial.println(WiFi.localIP());
   // WebSerial is accessible at "<IP Address>/webserial" in browser
-  WebSerial.begin(&server);
+  WebSerial.begin(server);
   /* Attach Message Callback */
   WebSerial.onMessage(recvMsg);
   server.begin();

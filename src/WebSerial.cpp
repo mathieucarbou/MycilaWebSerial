@@ -1,8 +1,8 @@
 #include <WebSerialLite.h>
 #include <WebSerialWebPage.h>
 
-void WebSerialClass::begin(AsyncWebServer* server, const char* url, const String& username, const String& password) {
-  _server = server;
+void WebSerialClass::begin(AsyncWebServer& server, const char* url, const String& username, const String& password) {
+  _server = &server;
   _username = username;
   _password = password;
   _auth = !_username.isEmpty() && !_password.isEmpty();
