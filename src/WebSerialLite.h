@@ -1,10 +1,10 @@
 #ifndef WebSerial_h
 #define WebSerial_h
 
-#define WEBSERIAL_VERSION          "4.0.0"
+#define WEBSERIAL_VERSION          "4.0.1"
 #define WEBSERIAL_VERSION_MAJOR    4
 #define WEBSERIAL_VERSION_MINOR    0
-#define WEBSERIAL_VERSION_REVISION 0
+#define WEBSERIAL_VERSION_REVISION 1
 #define WEBSERIAL_FORK_mathieucarbou
 
 #include <functional>
