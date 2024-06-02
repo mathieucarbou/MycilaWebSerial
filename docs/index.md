@@ -10,7 +10,6 @@ This fork is based on [asjdf/WebSerialLite](https://github.com/asjdf/WebSerialLi
 
 ## Changes in this fork
 
-- Removed ESP8266 support
 - Simplified callbacks
 - Fixed UI
 - Fixed Web Socket auto reconnect
@@ -18,6 +17,7 @@ This fork is based on [asjdf/WebSerialLite](https://github.com/asjdf/WebSerialLi
 - Command history (up/down arrow keys) saved in local storage
 - Support logo and fallback to title if not found.
 - Arduino 3 / ESP-IDF 5.1 Compatibility
+- Improved performance: can stream up to 20 lines per second is possible
 
 To add a logo, add a handler for `/logo` to serve your logo in the image format you want, gzipped or not. 
 You can use the [ESP32 embedding mechanism](https://docs.platformio.org/en/latest/platforms/espressif32.html).
@@ -40,4 +40,28 @@ You can use the [ESP32 embedding mechanism](https://docs.platformio.org/en/lates
 
 ## Dependencies
 
-- [mathieucarbou/ESPAsyncWebServer](https://github.com/mathieucarbou/ESPAsyncWebServer) - v2.9.0
+- [mathieucarbou/ESPAsyncWebServer](https://github.com/mathieucarbou/ESPAsyncWebServer)
+
+## Usage
+
+```c++
+  WebSerialLite.onMessage([](const String& msg) { Serial.println(msg); });
+  WebSerialLite.begin(server);
+
+  WebSerialLite.print("foo bar baz");
+```
+
+If you need line buffering to use print(c), printf, write(c), etc:
+
+```c++
+  WebSerialLite.onMessage([](const String& msg) { Serial.println(msg); });
+  WebSerialLite.begin(server);
+
+  WebSerialLite.initLogBuffer(100); // initial buffer size
+
+  WebSerialLite.printf("Line 1: %" PRIu32 "\nLine 2: %" PRIu32, count, ESP.getFreeHeap());
+  WebSerialLite.println();
+  WebSerialLite.print("Line ");
+  WebSerialLite.print(3);
+  WebSerialLite.println();
+```

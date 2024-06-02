@@ -245,11 +245,11 @@
         clearTimeout(pingTimeout);
         pingTimeout = false;
         connectTimeout = setTimeout(() => {
-            terminalWrite("[WebSerial] Connect timeout.\n");
+            terminalWrite("[WebSerial] Connect timeout.");
             websocket.close();
             initWebSocket();
         }, 3000);
-        terminalWrite("[WebSerial] Connecting...\n");
+        terminalWrite("[WebSerial] Connecting...");
         websocket = new WebSocket(gateway);
         websocket.onopen = onOpen;
         websocket.onclose = onClose;
@@ -290,7 +290,7 @@
 
     function onOpen(event) {
         clearTimeout(connectTimeout);
-        terminalWrite("[WebSerial] Connected...\n");
+        terminalWrite("[WebSerial] Connected...");
         document.getElementById("command-button").disabled = false;
         document.getElementById("command-text").disabled = false;
     }
@@ -316,7 +316,7 @@
     function terminalWrite(raw) {
         if (enableTimestamp) {
             let now = new Date();
-            raw = "[" + now.toLocaleTimeString() + "] " + raw;
+            raw = "[" + now.toLocaleTimeString() + "] " + raw + "\n";
         }
         textArea.value += raw;
         if (!enableFlowLock) {
@@ -348,7 +348,7 @@
     setInterval(() => {
         if (!pingTimeout && websocket.readyState == WebSocket.OPEN) {
             pingTimeout = setTimeout(() => {
-                terminalWrite("[WebSerial] Ping timeout.\n");
+                terminalWrite("[WebSerial] Ping timeout.");
                 websocket.close();
                 initWebSocket();
             }, 3000);

@@ -14,6 +14,6 @@ pnpm i
 pnpm build
 ```
 
-The `finalize.js` will compress and html and generate a new `WebSerialWebPage.h` in `../src` floder automatically.
+The `finalize.js` will compress and html and generate a new `WebSerialLiteWebPage.h` in `../src` floder automatically.
 
 Then you can rebuild your program, the new page ought be embedded in the firmware as expected.
