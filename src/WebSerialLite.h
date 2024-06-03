@@ -31,7 +31,7 @@ typedef std::function<void(const String& msg)> WebSerialLiteMessageCallback;
 
 class WebSerialLiteClass : public Print {
   public:
-    void begin(AsyncWebServer& server, const char* url = "/webserial", const String& username = "", const String& password = "");
+    void begin(AsyncWebServer& server, const char* url = "/webserial");
 
     void setAuthentication(const char* username, const char* password) { setAuthentication(String(username), String(password)); }
     void setAuthentication(const String& username, const String& password);

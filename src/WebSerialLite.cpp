@@ -11,9 +11,8 @@ void WebSerialLiteClass::setAuthentication(const String& username, const String&
   }
 }
 
-void WebSerialLiteClass::begin(AsyncWebServer& server, const char* url, const String& username, const String& password) {
+void WebSerialLiteClass::begin(AsyncWebServer& server, const char* url) {
   _server = &server;
-  setAuthentication(username, password);
 
   String backendUrl = url;
   backendUrl.concat("ws");
