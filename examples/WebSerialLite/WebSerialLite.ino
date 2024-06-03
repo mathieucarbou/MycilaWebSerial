@@ -43,7 +43,7 @@ void setup() {
   Serial.println(WiFi.softAPIP().toString());
 
   WebSerialLite.onMessage([](const String& msg) { Serial.println(msg); });
-  WebSerialLite.begin(server);
+  WebSerialLite.begin(&server);
 
   server.onNotFound([](AsyncWebServerRequest* request) { request->redirect("/webserial"); });
   server.begin();

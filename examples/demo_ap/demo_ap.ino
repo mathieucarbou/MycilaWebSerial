@@ -39,7 +39,7 @@ void setup() {
   Serial.print("AP IP address: ");
   Serial.println(IP);
   // WebSerial is accessible at "<IP Address>/webserial" in browser
-  WebSerialLite.begin(server);
+  WebSerialLite.begin(&server);
   /* Attach Message Callback */
   WebSerialLite.onMessage(recvMsg);
   server.begin();
