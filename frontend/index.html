@@ -335,7 +335,7 @@
         websocket.send(cmd);
         commandHistory.push(cmd);
         console.log('history size: ', commandHistory.length);
-        if (commandHistory, length > 20) {
+        if (commandHistory.length > 20) {
             console.log('history cleanup');
             commandHistory.splice(0, commandHistory.length - 20);
             console.log('history size: ', commandHistory.length);
