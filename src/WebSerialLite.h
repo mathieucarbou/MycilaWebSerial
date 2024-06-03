@@ -1,5 +1,5 @@
-#ifndef WebSerial_h
-#define WebSerial_h
+#ifndef WebSerialLite_h
+#define WebSerialLite_h
 
 #if defined(ESP8266)
 #include "ESP8266WiFi.h"
