@@ -2,7 +2,11 @@ Language: Cpp
 BasedOnStyle: LLVM
 
 AccessModifierOffset: -2
+BinPackArguments: false
+AllowAllArgumentsOnNextLine: false
+AllowAllParametersOfDeclarationOnNextLine: false
 AllowShortIfStatementsOnASingleLine: false
+AllowShortLambdasOnASingleLine: Inline
 ColumnLimit: 0
 ContinuationIndentWidth: 2
 FixNamespaceComments: false
@@ -14,3 +18,4 @@ PointerAlignment: Left
 ReferenceAlignment: Left
 TabWidth: 2
 UseTab: Never
+AlignConsecutiveMacros: true

@@ -58,8 +58,8 @@ ${ addLineBreaks(GZIPPED_INDEX) }
 #endif
 `;
   
-        fs.writeFileSync(path.resolve(__dirname, SAVE_PATH+'/WebSerialLiteWebPage.h'), FILE);
-        console.log(`[finalize.js] Compressed Bundle into WebSerialLiteWebPage.h header file | Total Size: ${(GZIPPED_INDEX.length / 1024).toFixed(2) }KB`)
+        fs.writeFileSync(path.resolve(__dirname, SAVE_PATH+'/WebSerialWebPage.h'), FILE);
+        console.log(`[finalize.js] Compressed Bundle into WebSerialWebPage.h header file | Total Size: ${(GZIPPED_INDEX.length / 1024).toFixed(2) }KB`)
     }catch(err){
         return console.error(err);
     }

@@ -45,23 +45,23 @@ You can use the [ESP32 embedding mechanism](https://docs.platformio.org/en/lates
 ## Usage
 
 ```c++
-  WebSerialLite.onMessage([](const String& msg) { Serial.println(msg); });
-  WebSerialLite.begin(server);
+  WebSerial.onMessage([](const String& msg) { Serial.println(msg); });
+  WebSerial.begin(server);
 
-  WebSerialLite.print("foo bar baz");
+  WebSerial.print("foo bar baz");
 ```
 
 If you need line buffering to use print(c), printf, write(c), etc:
 
 ```c++
-  WebSerialLite.onMessage([](const String& msg) { Serial.println(msg); });
-  WebSerialLite.begin(server);
+  WebSerial.onMessage([](const String& msg) { Serial.println(msg); });
+  WebSerial.begin(server);
 
-  WebSerialLite.initLogBuffer(100); // initial buffer size
+  WebSerial.setBuffer(100); // initial buffer size
 
-  WebSerialLite.printf("Line 1: %" PRIu32 "\nLine 2: %" PRIu32, count, ESP.getFreeHeap());
-  WebSerialLite.println();
-  WebSerialLite.print("Line ");
-  WebSerialLite.print(3);
-  WebSerialLite.println();
+  WebSerial.printf("Line 1: %" PRIu32 "\nLine 2: %" PRIu32, count, ESP.getFreeHeap());
+  WebSerial.println();
+  WebSerial.print("Line ");
+  WebSerial.print(3);
+  WebSerial.println();
 ```

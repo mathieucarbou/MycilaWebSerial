@@ -318,7 +318,7 @@
             let now = new Date();
             raw = "[" + now.toLocaleTimeString() + "] " + raw + "\n";
         }
-        textArea.value += raw;
+        textArea.value += raw + "\n";
         if (!enableFlowLock) {
             textArea.scrollTop = textArea.scrollHeight;
         }
