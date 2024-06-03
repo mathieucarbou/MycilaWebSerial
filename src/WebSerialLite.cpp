@@ -19,7 +19,7 @@ void WebSerialLiteClass::begin(AsyncWebServer* server, const char* url) {
   _ws = new AsyncWebSocket(backendUrl);
 
   if (_authenticate) {
-    _ws->setAuthentication(_username, _password);
+    _ws->setAuthentication(_username.c_str(), _password.c_str());
   }
 
   _server->on(url, HTTP_GET, [&](AsyncWebServerRequest* request) {
