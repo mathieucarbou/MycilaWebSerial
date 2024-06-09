@@ -27,7 +27,7 @@
     {
       "owner": "mathieucarbou",
       "name": "ESP Async WebServer",
-      "version": "^2.10.5",
+      "version": "^2.10.6",
       "platforms": ["espressif8266", "espressif32"]
     }
   ],
