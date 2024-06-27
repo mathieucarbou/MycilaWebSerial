@@ -11,9 +11,9 @@
 #include <ESPAsyncWebServer.h>
 #include <functional>
 
-#define WSL_VERSION          "6.0.0"
+#define WSL_VERSION          "6.1.0"
 #define WSL_VERSION_MAJOR    6
-#define WSL_VERSION_MINOR    0
+#define WSL_VERSION_MINOR    1
 #define WSL_VERSION_REVISION 0
 #define WSL_FORK_mathieucarbou
 
