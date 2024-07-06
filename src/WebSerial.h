@@ -56,6 +56,7 @@ class WebSerialClass : public Print {
     AsyncWebServer* _server;
     AsyncWebSocket* _ws;
     WSLMessageHandler _recv = nullptr;
+    WSLStringMessageHandler _recvString = nullptr;
     bool _authenticate = false;
     String _username;
     String _password;
