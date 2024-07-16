@@ -11,10 +11,10 @@
 #include <ESPAsyncWebServer.h>
 #include <functional>
 
-#define WSL_VERSION          "6.1.1"
+#define WSL_VERSION          "6.2.0"
 #define WSL_VERSION_MAJOR    6
-#define WSL_VERSION_MINOR    1
-#define WSL_VERSION_REVISION 1
+#define WSL_VERSION_MINOR    2
+#define WSL_VERSION_REVISION 0
 #define WSL_FORK_mathieucarbou
 
 #ifndef WSL_MAX_WS_CLIENTS
