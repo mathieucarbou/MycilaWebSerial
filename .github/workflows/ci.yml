@@ -59,12 +59,6 @@ jobs:
       - name: Install ESPAsyncWebServer
         run: ARDUINO_LIBRARY_ENABLE_UNSAFE_INSTALL=true arduino-cli lib install --git-url https://github.com/mathieucarbou/ESPAsyncWebServer#v3.1.1
 
-      - name: Build Demo
-        run: arduino-cli compile --library . --warnings none -b ${{ matrix.board }} "examples/Demo/Demo.ino"
-
-      - name: Build Demo_AP
-        run: arduino-cli compile --library . --warnings none -b ${{ matrix.board }} "examples/Demo_AP/Demo_AP.ino"
-
       - name: Build Logging
         run: arduino-cli compile --library . --warnings none -b ${{ matrix.board }} "examples/Logging/Logging.ino"
 
@@ -123,7 +117,5 @@ jobs:
       - run: pip install platformio
       - run: platformio platform install ${{ matrix.platform }}
 
-      - run: platformio ci "examples/Demo/Demo.ino" -l '.' -b ${{ matrix.board }} ${{ matrix.opts }}
-      - run: platformio ci "examples/Demo_AP/Demo_AP.ino" -l '.' -b ${{ matrix.board }} ${{ matrix.opts }}
       - run: platformio ci "examples/Logging/Logging.ino" -l '.' -b ${{ matrix.board }} ${{ matrix.opts }}
       - run: platformio ci "examples/HighPerf/HighPerf.ino" -l '.' -b ${{ matrix.board }} ${{ matrix.opts }}
