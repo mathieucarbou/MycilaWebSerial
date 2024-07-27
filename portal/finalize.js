@@ -49,17 +49,17 @@ function addLineBreaks(buffer) {
         const GZIPPED_INDEX = await gzipAsync(indexHtmlMinify, { numiterations: 15 });
 
         const FILE = 
-`#ifndef _webserial_webapge_h
-#define _webserial_webpage_h
+`
+// SPDX-License-Identifier: GPL-3.0-or-later
+#pragma once
 const uint32_t WEBSERIAL_HTML_SIZE = ${GZIPPED_INDEX.length};
 const uint8_t WEBSERIAL_HTML[] PROGMEM = { 
 ${ addLineBreaks(GZIPPED_INDEX) }
 };
-#endif
 `;
   
-        fs.writeFileSync(path.resolve(__dirname, SAVE_PATH+'/WebSerialWebPage.h'), FILE);
-        console.log(`[finalize.js] Compressed Bundle into WebSerialWebPage.h header file | Total Size: ${(GZIPPED_INDEX.length / 1024).toFixed(2) }KB`)
+        fs.writeFileSync(path.resolve(__dirname, SAVE_PATH+'/MycilaWebSerialPage.h'), FILE);
+        console.log(`[finalize.js] Compressed Bundle into MycilaWebSerialPage.h header file | Total Size: ${(GZIPPED_INDEX.length / 1024).toFixed(2) }KB`)
     }catch(err){
         return console.error(err);
     }

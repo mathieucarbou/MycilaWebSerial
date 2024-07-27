@@ -28,7 +28,7 @@
   #include <AsyncTCP.h>
 #endif
 #include <ESPAsyncWebServer.h>
-#include <WebSerial.h>
+#include <MycilaWebSerial.h>
 
 AsyncWebServer server(80);
 

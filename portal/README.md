@@ -1,6 +1,6 @@
 # Frontend
 
-The `index.html` is the only page of WebSerialLite and you can modify the page yourself and regenerate it.
+The `index.html` is the only page of MycilaWebSerial and you can modify the page yourself and regenerate it.
 
 In addition, I am also very happy that you can participate in fixing the bugs of the library or enhancing the functions of the library.
 

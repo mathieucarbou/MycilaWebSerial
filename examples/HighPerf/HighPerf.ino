@@ -27,7 +27,7 @@
 #include <DNSServer.h>
 #include <ESPAsyncWebServer.h>
 #include <WString.h>
-#include <WebSerial.h>
+#include <MycilaWebSerial.h>
 
 AsyncWebServer server(80);
 

@@ -4,4 +4,4 @@
 /.vscode/*
 !/.vscode/settings.json
 /logs
-/frontend/node_modules
+/portal/node_modules

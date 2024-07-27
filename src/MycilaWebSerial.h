@@ -1,5 +1,8 @@
-#ifndef WebSerial_h
-#define WebSerial_h
+// SPDX-License-Identifier: MIT
+/*
+ * Copyright (C) 2023-2024 Mathieu Carbou
+ */
+#pragma once
 
 #if defined(ESP8266)
 #include "ESP8266WiFi.h"
@@ -11,11 +14,10 @@
 #include <ESPAsyncWebServer.h>
 #include <functional>
 
-#define WSL_VERSION          "6.2.0"
+#define WSL_VERSION          "6.3.0"
 #define WSL_VERSION_MAJOR    6
-#define WSL_VERSION_MINOR    2
+#define WSL_VERSION_MINOR    3
 #define WSL_VERSION_REVISION 0
-#define WSL_FORK_mathieucarbou
 
 #ifndef WSL_MAX_WS_CLIENTS
 #define WSL_MAX_WS_CLIENTS DEFAULT_MAX_WS_CLIENTS
@@ -66,4 +68,3 @@ class WebSerialClass : public Print {
 };
 
 extern WebSerialClass WebSerial;
-#endif

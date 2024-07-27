@@ -1,5 +1,6 @@
-#ifndef _webserial_webapge_h
-#define _webserial_webpage_h
+
+// SPDX-License-Identifier: GPL-3.0-or-later
+#pragma once
 const uint32_t WEBSERIAL_HTML_SIZE = 2696;
 const uint8_t WEBSERIAL_HTML[] PROGMEM = { 
 31,139,8,0,0,0,0,0,2,3,116,86,119,151,163,54,16,255,42,10,151,178,206,179,112,185,189,45,20,167,
@@ -93,4 +94,3 @@ const uint8_t WEBSERIAL_HTML[] PROGMEM = {
 32,193,14,8,197,221,171,220,237,139,161,14,45,112,240,238,13,174,154,146,219,242,36,165,84,196,114,196,123,112,
 61,168,24,128,133,43,99,107,169,170,214,182,150,220,47,57,255,7,236,22,1,194,250,28,0,0
 };
-#endif

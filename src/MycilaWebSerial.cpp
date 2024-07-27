@@ -1,6 +1,10 @@
-#include "WebSerial.h"
+// SPDX-License-Identifier: MIT
+/*
+ * Copyright (C) 2023-2024 Mathieu Carbou
+ */
+#include "MycilaWebSerial.h"
 
-#include "WebSerialWebPage.h"
+#include "MycilaWebSerialPage.h"
 
 void WebSerialClass::setAuthentication(const String& username, const String& password) {
   _username = username;

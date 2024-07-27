@@ -1,14 +1,14 @@
-# WebSerialLite
+# MycilaWebSerial
 
-[![License: LGPL 3.0](https://img.shields.io/badge/License-GPL%203.0-yellow.svg)](https://opensource.org/license/gpl-3-0/)
-[![Continuous Integration](https://github.com/mathieucarbou/WebSerialLite/actions/workflows/ci.yml/badge.svg)](https://github.com/mathieucarbou/WebSerialLite/actions/workflows/ci.yml)
-[![PlatformIO Registry](https://badges.registry.platformio.org/packages/mathieucarbou/library/WebSerialLite.svg)](https://registry.platformio.org/libraries/mathieucarbou/WebSerialLite)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Continuous Integration](https://github.com/mathieucarbou/MycilaWebSerial/actions/workflows/ci.yml/badge.svg)](https://github.com/mathieucarbou/MycilaWebSerial/actions/workflows/ci.yml)
+[![PlatformIO Registry](https://badges.registry.platformio.org/packages/mathieucarbou/library/MycilaWebSerial.svg)](https://registry.platformio.org/libraries/mathieucarbou/MycilaWebSerial)
 
-WebSerial is a Serial Monitor for ESP32 that can be accessed remotely via a web browser. Webpage is stored in program memory of the microcontroller.
+MycilaWebSerial is a Serial Monitor for ESP32 that can be accessed remotely via a web browser. Webpage is stored in program memory of the microcontroller.
 
-This fork is based on [asjdf/WebSerialLite](https://github.com/asjdf/WebSerialLite).
+This library is based on the UI from [asjdf/WebSerialLite](https://github.com/asjdf/WebSerialLite) (and this part falls under GPL v3).
 
-## Changes in this fork
+## Changes
 
 - Simplified callbacks
 - Fixed UI
