@@ -14,10 +14,10 @@
 #include <ESPAsyncWebServer.h>
 #include <functional>
 
-#define WSL_VERSION          "6.3.0"
+#define WSL_VERSION          "6.3.1"
 #define WSL_VERSION_MAJOR    6
 #define WSL_VERSION_MINOR    3
-#define WSL_VERSION_REVISION 0
+#define WSL_VERSION_REVISION 1
 
 #ifndef WSL_MAX_WS_CLIENTS
 #define WSL_MAX_WS_CLIENTS DEFAULT_MAX_WS_CLIENTS

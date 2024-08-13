@@ -1,6 +1,6 @@
 {
   "name": "MycilaWebSerial",
-  "version": "6.3.0",
+  "version": "6.3.1",
   "keywords": "MycilaWebSerial, serial, monitor, ESP8266, ESP32, webpage, websocket, wireless",
   "description": "MycilaWebSerial is a webpage based Serial Monitor to log, monitor, or debug your code remotely.",
   "homepage": "https://github.com/mathieucarbou/MycilaWebSerial",
