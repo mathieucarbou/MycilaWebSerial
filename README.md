@@ -1,6 +1,6 @@
 # MycilaWebSerial
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg)](http://perso.crans.org/besson/LICENSE.html)
 [![Continuous Integration](https://github.com/mathieucarbou/MycilaWebSerial/actions/workflows/ci.yml/badge.svg)](https://github.com/mathieucarbou/MycilaWebSerial/actions/workflows/ci.yml)
 [![PlatformIO Registry](https://badges.registry.platformio.org/packages/mathieucarbou/library/MycilaWebSerial.svg)](https://registry.platformio.org/libraries/mathieucarbou/MycilaWebSerial)
 

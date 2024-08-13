@@ -15,7 +15,7 @@
       "maintainer": true
     }
   ],
-  "license": "MIT",
+  "license": "GPL-3.0-or-later",
   "frameworks": "arduino",
   "platforms": ["espressif8266", "espressif32"],
   "headers": ["MycilaWebSerial.h"],
