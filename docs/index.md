@@ -1,6 +1,6 @@
 # MycilaWebSerial
 
-[![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg)](http://perso.crans.org/besson/LICENSE.html)
+[![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.txt)
 [![Continuous Integration](https://github.com/mathieucarbou/MycilaWebSerial/actions/workflows/ci.yml/badge.svg)](https://github.com/mathieucarbou/MycilaWebSerial/actions/workflows/ci.yml)
 [![PlatformIO Registry](https://badges.registry.platformio.org/packages/mathieucarbou/library/MycilaWebSerial.svg)](https://registry.platformio.org/libraries/mathieucarbou/MycilaWebSerial)
 
