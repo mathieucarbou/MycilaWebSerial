@@ -1,8 +1,14 @@
 # MycilaWebSerial
 
-[![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.txt)
-[![Continuous Integration](https://github.com/mathieucarbou/MycilaWebSerial/actions/workflows/ci.yml/badge.svg)](https://github.com/mathieucarbou/MycilaWebSerial/actions/workflows/ci.yml)
+[![Latest Release](https://img.shields.io/github/release/mathieucarbou/MycilaWebSerial.svg)](https://GitHub.com/mathieucarbou/MycilaWebSerial/releases/)
 [![PlatformIO Registry](https://badges.registry.platformio.org/packages/mathieucarbou/library/MycilaWebSerial.svg)](https://registry.platformio.org/libraries/mathieucarbou/MycilaWebSerial)
+
+[![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.txt)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)
+
+[![Build](https://github.com/mathieucarbou/MycilaWebSerial/actions/workflows/ci.yml/badge.svg)](https://github.com/mathieucarbou/MycilaWebSerial/actions/workflows/ci.yml)
+[![GitHub latest commit](https://badgen.net/github/last-commit/mathieucarbou/MycilaWebSerial)](https://GitHub.com/mathieucarbou/MycilaWebSerial/commit/)
+[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/mathieucarbou/MycilaWebSerial)
 
 MycilaWebSerial is a Serial Monitor for ESP32 that can be accessed remotely via a web browser. Webpage is stored in program memory of the microcontroller.
 
