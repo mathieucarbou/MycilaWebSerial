@@ -6,6 +6,8 @@
 
 #include "MycilaWebSerialPage.h"
 
+#include <assert.h>
+
 void WebSerialClass::setAuthentication(const String& username, const String& password) {
   _username = username;
   _password = password;
