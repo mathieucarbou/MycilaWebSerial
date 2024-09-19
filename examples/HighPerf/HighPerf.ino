@@ -26,8 +26,8 @@
 #endif
 #include <DNSServer.h>
 #include <ESPAsyncWebServer.h>
-#include <WString.h>
 #include <MycilaWebSerial.h>
+#include <WString.h>
 
 AsyncWebServer server(80);
 
@@ -52,6 +52,7 @@ void setup() {
 void loop() {
   if (millis() - last > 50) {
     count++;
+
     long r = random(10, 250) + 15;
     String buffer;
     buffer.reserve(r);
@@ -63,7 +64,15 @@ void loop() {
     for (int i = 0; i < r; i++) {
       buffer += dict[random(0, 62)];
     }
-    WebSerial.print(buffer);
+
+    // Using Print class method
+    // WebSerial.print(buffer);
+
+    // Using internal websocket buffer to improve memory consumption and avoid another internal copy when enqueueing the message
+    AsyncWebSocketMessageBuffer* wsBuffer = WebSerial.makeBuffer(buffer.length());
+    memmove(wsBuffer->get(), buffer.c_str(), buffer.length());
+    WebSerial.send(wsBuffer);
+
     last = millis();
   }
 }
