@@ -23,7 +23,7 @@
     {
       "owner": "mathieucarbou",
       "name": "ESPAsyncWebServer",
-      "version": "^3.3.2",
+      "version": "^3.3.3",
       "platforms": ["espressif8266", "espressif32"]
     }
   ],
