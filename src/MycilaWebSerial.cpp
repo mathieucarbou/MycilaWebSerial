@@ -8,7 +8,7 @@
 
 #include <assert.h>
 
-void WebSerialClass::setAuthentication(const String& username, const String& password) {
+void WebSerialClass::setAuthentication(const char* username, const char* password) {
   _username = username;
   _password = password;
   _authenticate = !_username.isEmpty() && !_password.isEmpty();

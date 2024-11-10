@@ -38,8 +38,8 @@ typedef std::function<void(const String& msg)> WSLStringMessageHandler;
 class WebSerialClass : public Print {
   public:
     void begin(AsyncWebServer* server, const char* url = "/webserial");
-    inline void setAuthentication(const char* username, const char* password) { setAuthentication(String(username), String(password)); }
-    void setAuthentication(const String& username, const String& password);
+    void setAuthentication(const char* username, const char* password);
+    void setAuthentication(const String& username, const String& password) { setAuthentication(username.c_str(), password.c_str()); }
     void onMessage(WSLMessageHandler recv);
     void onMessage(WSLStringMessageHandler recv);
     size_t write(uint8_t) override;
