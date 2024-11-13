@@ -51,7 +51,7 @@ You can use the [ESP32 embedding mechanism](https://docs.platformio.org/en/lates
 ## Usage
 
 ```c++
-  WebSerial.onMessage([](const String& msg) { Serial.println(msg); });
+  WebSerial.onMessage([](const std::string& msg) { Serial.println(msg.c_str()); });
   WebSerial.begin(server);
 
   WebSerial.print("foo bar baz");
@@ -60,7 +60,7 @@ You can use the [ESP32 embedding mechanism](https://docs.platformio.org/en/lates
 If you need line buffering to use print(c), printf, write(c), etc:
 
 ```c++
-  WebSerial.onMessage([](const String& msg) { Serial.println(msg); });
+  WebSerial.onMessage([](const std::string& msg) { Serial.println(msg.c_str()); });
   WebSerial.begin(server);
 
   WebSerial.setBuffer(100); // initial buffer size

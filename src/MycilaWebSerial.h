@@ -13,6 +13,7 @@
 #include <Arduino.h>
 #include <ESPAsyncWebServer.h>
 #include <functional>
+#include <string>
 
 #define WSL_VERSION          "6.4.2"
 #define WSL_VERSION_MAJOR    6
@@ -33,13 +34,12 @@
 //  -D WS_MAX_QUEUED_MESSAGES=128       // WS message queue size
 
 typedef std::function<void(uint8_t* data, size_t len)> WSLMessageHandler;
-typedef std::function<void(const String& msg)> WSLStringMessageHandler;
+typedef std::function<void(const std::string& msg)> WSLStringMessageHandler;
 
 class WebSerialClass : public Print {
   public:
     void begin(AsyncWebServer* server, const char* url = "/webserial");
     void setAuthentication(const char* username, const char* password);
-    void setAuthentication(const String& username, const String& password) { setAuthentication(username.c_str(), password.c_str()); }
     void onMessage(WSLMessageHandler recv);
     void onMessage(WSLStringMessageHandler recv);
     size_t write(uint8_t) override;
@@ -81,10 +81,10 @@ class WebSerialClass : public Print {
     WSLMessageHandler _recv = nullptr;
     WSLStringMessageHandler _recvString = nullptr;
     bool _authenticate = false;
-    String _username;
-    String _password;
+    std::string _username;
+    std::string _password;
     size_t _initialBufferCapacity = 0;
-    String _buffer;
+    std::string _buffer;
     void _send(const uint8_t* buffer, size_t size);
 };
 

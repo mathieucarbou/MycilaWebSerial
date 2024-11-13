@@ -33,7 +33,7 @@ void setup() {
   Serial.print("IP Address: ");
   Serial.println(WiFi.softAPIP().toString());
 
-  WebSerial.onMessage([](const String& msg) { Serial.println(msg); });
+  WebSerial.onMessage([](const std::string& msg) { Serial.println(msg.c_str()); });
   WebSerial.begin(&server);
   WebSerial.setBuffer(100);
 
