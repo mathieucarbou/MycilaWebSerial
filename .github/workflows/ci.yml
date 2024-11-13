@@ -12,59 +12,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  arduino:
-    name: arduino ${{ matrix.name }}
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - name: package_esp32_index.json
-            core: esp32:esp32
-            board: esp32:esp32:esp32
-            index_url: https://espressif.github.io/arduino-esp32/package_esp32_index.json
-          - name: package_esp32_dev_index.json
-            core: esp32:esp32
-            board: esp32:esp32:esp32
-            index_url: https://espressif.github.io/arduino-esp32/package_esp32_dev_index.json
-          - name: package_esp8266com_index.json
-            core: esp8266:esp8266
-            board: esp8266:esp8266:huzzah
-            index_url: https://arduino.esp8266.com/stable/package_esp8266com_index.json
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Arduino Lint
-        uses: arduino/arduino-lint-action@v2
-        with:
-          library-manager: false
-
-      - name: Install arduino-cli
-        run: curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=/usr/local/bin sh
-
-      - name: Update core index
-        run: arduino-cli core update-index --additional-urls "${{ matrix.index_url }}"
-
-      - name: Install core
-        run: arduino-cli core install --additional-urls "${{ matrix.index_url }}" ${{ matrix.core }}
-
-      - name: Install AsyncTCP
-        run: ARDUINO_LIBRARY_ENABLE_UNSAFE_INSTALL=true arduino-cli lib install --git-url https://github.com/mathieucarbou/AsyncTCP#v3.2.14
-
-      - name: Install ESPAsyncTCP
-        run: ARDUINO_LIBRARY_ENABLE_UNSAFE_INSTALL=true arduino-cli lib install --git-url https://github.com/mathieucarbou/esphome-ESPAsyncTCP#v2.0.0
-
-      - name: Install ESPAsyncWebServer
-        run: ARDUINO_LIBRARY_ENABLE_UNSAFE_INSTALL=true arduino-cli lib install --git-url https://github.com/mathieucarbou/ESPAsyncWebServer#v3.3.22
-
-      - name: Build Logging
-        run: arduino-cli compile --library . --warnings none -b ${{ matrix.board }} "examples/Logging/Logging.ino"
-
-      - name: Build HighPerf
-        run: arduino-cli compile --library . --warnings none -b ${{ matrix.board }} "examples/HighPerf/HighPerf.ino"
-
   platformio:
     name: "pio:${{ matrix.env }}:${{ matrix.board }}"
     runs-on: ubuntu-latest
