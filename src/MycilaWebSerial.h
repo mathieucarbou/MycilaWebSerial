@@ -10,7 +10,6 @@
 #include "WiFi.h"
 #endif
 
-#include <Arduino.h>
 #include <ESPAsyncWebServer.h>
 #include <functional>
 #include <string>
