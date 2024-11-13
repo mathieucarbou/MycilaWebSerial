@@ -15,10 +15,10 @@
 #include <functional>
 #include <string>
 
-#define WSL_VERSION          "6.4.2"
-#define WSL_VERSION_MAJOR    6
-#define WSL_VERSION_MINOR    4
-#define WSL_VERSION_REVISION 2
+#define WSL_VERSION          "7.0.0"
+#define WSL_VERSION_MAJOR    7
+#define WSL_VERSION_MINOR    0
+#define WSL_VERSION_REVISION 0
 
 #ifndef WSL_MAX_WS_CLIENTS
 #define WSL_MAX_WS_CLIENTS DEFAULT_MAX_WS_CLIENTS
