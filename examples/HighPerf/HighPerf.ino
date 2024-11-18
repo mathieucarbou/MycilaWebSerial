@@ -52,14 +52,13 @@ void loop() {
   if (millis() - last > 50) {
     count++;
 
-    size_t max = random(10, 250) + 15;
+    size_t max = random(25, 265);
     std::string buffer;
     buffer.reserve(max);
-    buffer.append(std::to_string(count));
-    buffer.append("         ");
-    for (int i = 0; i < max; i++) {
-      buffer.append(std::to_string('a' + rand() % 26));
-    }
+    buffer += std::to_string(count);
+    buffer += " ";
+    for (int i = 0; i < max; i++)
+      buffer += 'a' + rand() % 26;
 
     // Using Print class method
     // WebSerial.print(buffer);
