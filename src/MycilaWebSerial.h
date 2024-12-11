@@ -28,7 +28,7 @@
 // - Low latency (messages sent immediately to the WebSocket queue)
 // - High throughput (up to 20 messages per second, no locking mechanism)
 // Also recommended to tweak AsyncTCP and ESPAsyncWebServer settings, for example:
-//  -D CONFIG_ASYNC_TCP_QUEUE_SIZE=128  // AsyncTCP queue size
+//  -D CONFIG_ASYNC_TCP_QUEUE_SIZE=64  // AsyncTCP queue size
 //  -D CONFIG_ASYNC_TCP_RUNNING_CORE=1  // core for the async_task
 //  -D WS_MAX_QUEUED_MESSAGES=128       // WS message queue size
 

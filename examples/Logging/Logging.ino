@@ -4,7 +4,7 @@
  * Before using this example, make sure to look at the WebSerial example before and its description.\
  *
  * You might want to control these flags to control the async library performance:
- *  -D CONFIG_ASYNC_TCP_QUEUE_SIZE=128
+ *  -D CONFIG_ASYNC_TCP_QUEUE_SIZE=64
  *  -D CONFIG_ASYNC_TCP_RUNNING_CORE=1
  *  -D WS_MAX_QUEUED_MESSAGES=128
  */
