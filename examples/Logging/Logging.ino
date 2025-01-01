@@ -22,6 +22,7 @@
 #include <MycilaWebSerial.h>
 
 AsyncWebServer server(80);
+WebSerial webSerial;
 
 static uint32_t last = millis();
 static uint32_t count = 0;
@@ -33,9 +34,9 @@ void setup() {
   Serial.print("IP Address: ");
   Serial.println(WiFi.softAPIP().toString());
 
-  WebSerial.onMessage([](const std::string& msg) { Serial.println(msg.c_str()); });
-  WebSerial.begin(&server);
-  WebSerial.setBuffer(100);
+  webSerial.onMessage([](const std::string& msg) { Serial.println(msg.c_str()); });
+  webSerial.begin(&server);
+  webSerial.setBuffer(100);
 
   server.onNotFound([](AsyncWebServerRequest* request) { request->redirect("/webserial"); });
   server.begin();
@@ -45,10 +46,10 @@ void loop() {
   if (millis() - last > 1000) {
     count++;
 
-    WebSerial.print(F("IP address: "));
-    WebSerial.println(WiFi.softAPIP());
-    WebSerial.printf("Uptime: %lums\n", millis());
-    WebSerial.printf("Free heap: %" PRIu32 "\n", ESP.getFreeHeap());
+    webSerial.print(F("IP address: "));
+    webSerial.println(WiFi.softAPIP());
+    webSerial.printf("Uptime: %lums\n", millis());
+    webSerial.printf("Free heap: %" PRIu32 "\n", ESP.getFreeHeap());
 
     last = millis();
   }

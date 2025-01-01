@@ -30,6 +30,7 @@
 #include <WString.h>
 
 AsyncWebServer server(80);
+WebSerial webSerial;
 
 static uint32_t last = millis();
 static uint32_t count = 0;
@@ -41,8 +42,8 @@ void setup() {
   Serial.print("IP Address: ");
   Serial.println(WiFi.softAPIP().toString());
 
-  WebSerial.onMessage([](const std::string& msg) { Serial.println(msg.c_str()); });
-  WebSerial.begin(&server);
+  webSerial.onMessage([](const std::string& msg) { Serial.println(msg.c_str()); });
+  webSerial.begin(&server);
 
   server.onNotFound([](AsyncWebServerRequest* request) { request->redirect("/webserial"); });
   server.begin();
@@ -61,12 +62,12 @@ void loop() {
       buffer += 'a' + rand() % 26;
 
     // Using Print class method
-    // WebSerial.print(buffer);
+    // webSerial.print(buffer);
 
     // Using internal websocket buffer to improve memory consumption and avoid another internal copy when enqueueing the message
-    AsyncWebSocketMessageBuffer* wsBuffer = WebSerial.makeBuffer(buffer.length());
+    AsyncWebSocketMessageBuffer* wsBuffer = webSerial.makeBuffer(buffer.length());
     memmove(wsBuffer->get(), buffer.c_str(), buffer.length());
-    WebSerial.send(wsBuffer);
+    webSerial.send(wsBuffer);
 
     last = millis();
   }

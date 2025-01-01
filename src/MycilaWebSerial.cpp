@@ -10,7 +10,7 @@
 
 #include <string>
 
-void WebSerialClass::setAuthentication(const char* username, const char* password) {
+void WebSerial::setAuthentication(const char* username, const char* password) {
   _username = username;
   _password = password;
   _authenticate = !_username.empty() && !_password.empty();
@@ -19,7 +19,7 @@ void WebSerialClass::setAuthentication(const char* username, const char* passwor
   }
 }
 
-void WebSerialClass::begin(AsyncWebServer* server, const char* url) {
+void WebSerial::begin(AsyncWebServer* server, const char* url) {
   _server = server;
 
   std::string backendUrl = url;
@@ -62,11 +62,11 @@ void WebSerialClass::begin(AsyncWebServer* server, const char* url) {
   _server->addHandler(_ws);
 }
 
-void WebSerialClass::onMessage(WSLMessageHandler recv) {
+void WebSerial::onMessage(WSLMessageHandler recv) {
   _recv = recv;
 }
 
-void WebSerialClass::onMessage(WSLStringMessageHandler callback) {
+void WebSerial::onMessage(WSLStringMessageHandler callback) {
   _recvString = callback;
   _recv = [&](uint8_t* data, size_t len) {
     if (data && len) {
@@ -78,7 +78,7 @@ void WebSerialClass::onMessage(WSLStringMessageHandler callback) {
   };
 }
 
-size_t WebSerialClass::write(uint8_t m) {
+size_t WebSerial::write(uint8_t m) {
   if (!_ws)
     return 0;
 
@@ -98,7 +98,7 @@ size_t WebSerialClass::write(uint8_t m) {
   return (1);
 }
 
-size_t WebSerialClass::write(const uint8_t* buffer, size_t size) {
+size_t WebSerial::write(const uint8_t* buffer, size_t size) {
   if (!_ws || size == 0)
     return 0;
 
@@ -127,7 +127,7 @@ size_t WebSerialClass::write(const uint8_t* buffer, size_t size) {
   return size;
 }
 
-void WebSerialClass::_send(const uint8_t* buffer, size_t size) {
+void WebSerial::_send(const uint8_t* buffer, size_t size) {
   if (_ws && size > 0) {
     _ws->cleanupClients(WSL_MAX_WS_CLIENTS);
     if (_ws->count()) {
@@ -145,11 +145,9 @@ void WebSerialClass::_send(const uint8_t* buffer, size_t size) {
   }
 }
 
-void WebSerialClass::setBuffer(size_t initialCapacity) {
+void WebSerial::setBuffer(size_t initialCapacity) {
   assert(initialCapacity <= UINT16_MAX);
   _initialBufferCapacity = initialCapacity;
   _buffer = std::string();
   _buffer.reserve(initialCapacity);
 }
-
-WebSerialClass WebSerial;

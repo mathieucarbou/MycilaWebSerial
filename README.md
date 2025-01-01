@@ -25,7 +25,7 @@ This library is based on the UI from [asjdf/WebSerialLite](https://github.com/as
 - Arduino 3 / ESP-IDF 5.1 Compatibility
 - Improved performance: can stream up to 20 lines per second is possible
 
-To add a logo, add a handler for `/logo` to serve your logo in the image format you want, gzipped or not. 
+To add a logo, add a handler for `/logo` to serve your logo in the image format you want, gzipped or not.
 You can use the [ESP32 embedding mechanism](https://docs.platformio.org/en/latest/platforms/espressif32.html).
 
 ## Preview
@@ -51,23 +51,48 @@ You can use the [ESP32 embedding mechanism](https://docs.platformio.org/en/lates
 ## Usage
 
 ```c++
-  WebSerial.onMessage([](const std::string& msg) { Serial.println(msg.c_str()); });
-  WebSerial.begin(server);
+  WebSerial webSerial;
 
-  WebSerial.print("foo bar baz");
+  webSerial.onMessage([](const std::string& msg) { Serial.println(msg.c_str()); });
+  webSerial.begin(server);
+
+  webSerial.print("foo bar baz");
 ```
 
 If you need line buffering to use print(c), printf, write(c), etc:
 
 ```c++
-  WebSerial.onMessage([](const std::string& msg) { Serial.println(msg.c_str()); });
-  WebSerial.begin(server);
+  WebSerial webSerial;
 
-  WebSerial.setBuffer(100); // initial buffer size
+  webSerial.onMessage([](const std::string& msg) { Serial.println(msg.c_str()); });
+  webSerial.begin(server);
 
-  WebSerial.printf("Line 1: %" PRIu32 "\nLine 2: %" PRIu32, count, ESP.getFreeHeap());
-  WebSerial.println();
-  WebSerial.print("Line ");
-  WebSerial.print(3);
-  WebSerial.println();
+  webSerial.setBuffer(100); // initial buffer size
+
+  webSerial.printf("Line 1: %" PRIu32 "\nLine 2: %" PRIu32, count, ESP.getFreeHeap());
+  webSerial.println();
+  webSerial.print("Line ");
+  webSerial.print(3);
+  webSerial.println();
+```
+
+`WebSerial` is a class. It is not a static instance anymore.
+This allows you to initialize it only when needed in order to save memory space:
+
+```c++
+  WebSerial* webSerial = nullptr;
+
+  void setup() {
+    if (shouldEnableWebSerial) {
+      webSerial = new WebSerial();
+      webSerial->onMessage([](const std::string& msg) { Serial.println(msg.c_str()); });
+      webSerial->begin(server);
+    }
+  }
+
+  void loop() {
+    if (webSerial) {
+      webSerial->print("foo bar baz");
+    }
+  }
 ```

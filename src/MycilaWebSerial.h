@@ -35,7 +35,7 @@
 typedef std::function<void(uint8_t* data, size_t len)> WSLMessageHandler;
 typedef std::function<void(const std::string& msg)> WSLStringMessageHandler;
 
-class WebSerialClass : public Print {
+class WebSerial : public Print {
   public:
     void begin(AsyncWebServer* server, const char* url = "/webserial");
     void setAuthentication(const char* username, const char* password);
@@ -86,5 +86,3 @@ class WebSerialClass : public Print {
     std::string _buffer;
     void _send(const uint8_t* buffer, size_t size);
 };
-
-extern WebSerialClass WebSerial;
