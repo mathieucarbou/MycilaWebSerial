@@ -82,13 +82,13 @@ size_t WebSerial::write(uint8_t m) {
   if (!_ws)
     return 0;
 
-  // We do not support non-buffered write on webserial for the HIGH_PERF version
+  // We do not support non-buffered write on webserial
   // we fail with a stack trace allowing the user to change the code to use write(const uint8_t* buffer, size_t size) instead
   if (!_initialBufferCapacity) {
 #ifdef ESP8266
-    ets_printf("'-D WSL_FAIL_ON_NON_BUFFERED_WRITE' is set: non-buffered write is not supported. Please use write(const uint8_t* buffer, size_t size) instead.");
+    ets_printf("Non-buffered write is not supported: use webSerial.setBuffer(size_t)");
 #else
-    log_e("'-D WSL_FAIL_ON_NON_BUFFERED_WRITE' is set: non-buffered write is not supported. Please use write(const uint8_t* buffer, size_t size) instead.");
+    log_e("Non-buffered write is not supported: use webSerial.setBuffer(size_t)");
 #endif
     assert(false);
     return 0;
