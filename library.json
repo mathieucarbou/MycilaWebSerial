@@ -21,7 +21,7 @@
   "headers": ["MycilaWebSerial.h"],
   "dependencies": [
     {
-      "owner": "mathieucarbou",
+      "owner": "ESP32Async",
       "name": "ESPAsyncWebServer",
       "version": "^3.6.0",
       "platforms": ["espressif8266", "espressif32"]
