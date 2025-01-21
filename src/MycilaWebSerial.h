@@ -52,7 +52,6 @@ class WebSerial : public Print {
     // The buffer is not enabled by default.
     void setBuffer(size_t initialCapacity);
 
-#ifdef ASYNCWEBSERVER_FORK_mathieucarbou
     // Expose the internal WebSocket makeBuffer to even improve memory consumption on client-side
     // 1. make a AsyncWebSocketMessageBuffer
     // 2. put the data inside
@@ -71,7 +70,6 @@ class WebSerial : public Print {
       if (_ws->count())
         _ws->textAll(buffer);
     }
-#endif
 
   private:
     // Server
