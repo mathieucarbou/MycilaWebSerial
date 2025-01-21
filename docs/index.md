@@ -46,7 +46,7 @@ You can use the [ESP32 embedding mechanism](https://docs.platformio.org/en/lates
 
 ## Dependencies
 
-- [mathieucarbou/ESPAsyncWebServer](https://github.com/mathieucarbou/ESPAsyncWebServer)
+- [ESP32Async/ESPAsyncWebServer](https://github.com/ESP32Async/ESPAsyncWebServer)
 
 ## Usage
 

@@ -9,7 +9,7 @@ assignees: ''
 
 **Please make sure to go through the recommendations before opening a bug report:**
 
-[https://github.com/mathieucarbou/ESPAsyncWebServer?tab=readme-ov-file#important-recommendations](https://github.com/mathieucarbou/ESPAsyncWebServer?tab=readme-ov-file#important-recommendations)
+[https://github.com/ESP32Async/ESPAsyncWebServer?tab=readme-ov-file#important-recommendations](https://github.com/ESP32Async/ESPAsyncWebServer?tab=readme-ov-file#important-recommendations)
 
 **Description**
 
