@@ -43,6 +43,9 @@ class WebSerial : public Print {
     void onMessage(WSLStringMessageHandler recv);
     size_t write(uint8_t) override;
     size_t write(const uint8_t* buffer, size_t size) override;
+    size_t getConnectionCount() const {
+      return _ws ? _ws->count() : 0;
+    }
 
     // A buffer (shared across cores) can be initialised with an initial capacity to be able to use any Print functions event those that are not buffered and would
     // create a performance impact for WS calls. The goal of this buffer is to be used with lines ending with '\n', like log messages.
