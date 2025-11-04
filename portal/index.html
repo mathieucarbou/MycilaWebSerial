@@ -218,7 +218,7 @@
     </div>
 </body>
 <script>
-    let gateway = ((window.location.protocol === "https:") ? "wss://" : "ws://") + window.location.host + (window.location.pathname.endsWith("/") ? window.location.pathname.slice(0, -1) : window.location.pathname) + 'ws';
+    let gateway = ((window.location.protocol === "https:") ? "wss://" : "ws://") + window.location.host + (window.location.pathname.endsWith("/") ? window.location.pathname.slice(0, -1) : window.location.pathname);
     let websocket;
     let textArea = document.getElementById("record");
     let enableFlowLock = false;

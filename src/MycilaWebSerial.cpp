@@ -4,7 +4,9 @@
  */
 #include "MycilaWebSerial.h"
 
-#include "MycilaWebSerialPage.h"
+#if WSL_DEFAULT_HTTP_HANDLER
+  #include "MycilaWebSerialPage.h"
+#endif
 
 #include <assert.h>
 
@@ -21,15 +23,13 @@ void WebSerial::setAuthentication(const char* username, const char* password) {
 
 void WebSerial::begin(AsyncWebServer* server, const char* url) {
   _server = server;
-
-  std::string backendUrl = url;
-  backendUrl.append("ws");
-  _ws = new AsyncWebSocket(backendUrl.c_str());
+  _ws = new AsyncWebSocket(url);
 
   if (_authenticate) {
     _ws->setAuthentication(_username.c_str(), _password.c_str());
   }
 
+#if WSL_DEFAULT_HTTP_HANDLER
   _server->on(url, HTTP_GET, [&](AsyncWebServerRequest* request) {
     if (_authenticate) {
       if (!request->authenticate(_username.c_str(), _password.c_str()))
@@ -39,6 +39,7 @@ void WebSerial::begin(AsyncWebServer* server, const char* url) {
     response->addHeader("Content-Encoding", "gzip");
     request->send(response);
   });
+#endif
 
   _ws->onEvent([&](__unused AsyncWebSocket* server, AsyncWebSocketClient* client, AwsEventType type, __unused void* arg, uint8_t* data, __unused size_t len) -> void {
     if (type == WS_EVT_CONNECT) {
