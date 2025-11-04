@@ -51,6 +51,10 @@ void loop() {
     webSerial.printf("Uptime: %lums\n", millis());
     webSerial.printf("Free heap: %" PRIu32 "\n", ESP.getFreeHeap());
 
+    // with ansi escape codes
+    webSerial.printf("\033[1mIteration:\033[22m %lu\n", count);
+    Serial.printf("\033[1mIteration:\033[22m %lu\n", count);
+
     last = millis();
   }
 }
