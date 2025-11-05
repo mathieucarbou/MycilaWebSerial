@@ -34,6 +34,11 @@ void setup() {
   Serial.print("IP Address: ");
   Serial.println(WiFi.softAPIP().toString());
 
+#ifdef WSL_CUSTOM_PAGE
+  const char* customHtmlPage = "Hello! This is a custom web page of webserial.";
+  webSerial.setCustomHtmlPage(customHtmlPage);
+#endif
+
   webSerial.onMessage([](const std::string& msg) { Serial.println(msg.c_str()); });
   webSerial.begin(&server);
   webSerial.setBuffer(100);
@@ -50,6 +55,10 @@ void loop() {
     webSerial.println(WiFi.softAPIP());
     webSerial.printf("Uptime: %lums\n", millis());
     webSerial.printf("Free heap: %" PRIu32 "\n", ESP.getFreeHeap());
+
+    // with ansi escape codes
+    webSerial.printf("\033[1mIteration:\033[22m %lu\n", count);
+    Serial.printf("\033[1mIteration:\033[22m %lu\n", count);
 
     last = millis();
   }

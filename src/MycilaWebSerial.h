@@ -4,10 +4,14 @@
  */
 #pragma once
 
-#if defined(ESP8266)
-#include "ESP8266WiFi.h"
+#ifdef ESP8266
+  #include "ESP8266WiFi.h"
 #elif defined(ESP32)
-#include "WiFi.h"
+  #include "WiFi.h"
+#endif
+
+#ifndef WSL_CUSTOM_PAGE
+  #include "MycilaWebSerialPage.h"
 #endif
 
 #include <ESPAsyncWebServer.h>
@@ -20,7 +24,7 @@
 #define WSL_VERSION_REVISION 3
 
 #ifndef WSL_MAX_WS_CLIENTS
-#define WSL_MAX_WS_CLIENTS DEFAULT_MAX_WS_CLIENTS
+  #define WSL_MAX_WS_CLIENTS DEFAULT_MAX_WS_CLIENTS
 #endif
 
 // High performance mode:
@@ -37,7 +41,11 @@ typedef std::function<void(const std::string& msg)> WSLStringMessageHandler;
 
 class WebSerial : public Print {
   public:
-    void begin(AsyncWebServer* server, const char* url = "/webserial");
+    void begin(AsyncWebServer* server, const char* urlHtmlPage = "/webserial", const char* urlWebSocket = "/webserialws");
+#ifdef WSL_CUSTOM_PAGE
+    bool setCustomHtmlPage(const uint8_t* ptr, size_t size, const char* encoding = nullptr);
+    bool setCustomHtmlPage(const char* ptr, const char* encoding = nullptr);
+#endif
     void setAuthentication(const char* username, const char* password);
     void onMessage(WSLMessageHandler recv);
     void onMessage(WSLStringMessageHandler recv);
@@ -85,5 +93,14 @@ class WebSerial : public Print {
     std::string _password;
     size_t _initialBufferCapacity = 0;
     std::string _buffer;
+#ifdef WSL_CUSTOM_PAGE
+    const uint8_t* _htmlPage = nullptr;
+    size_t _htmlPageSize = 0;
+    const char* _htmlPageEncoding = nullptr;
+#else
+    const uint8_t* _htmlPage = WEBSERIAL_HTML;
+    size_t _htmlPageSize = WEBSERIAL_HTML_SIZE;
+    const char* _htmlPageEncoding = "gzip";
+#endif
     void _send(const uint8_t* buffer, size_t size);
 };
