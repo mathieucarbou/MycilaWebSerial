@@ -24,6 +24,7 @@ This library is based on the UI from [asjdf/WebSerialLite](https://github.com/as
 - Support logo and fallback to title if not found.
 - Arduino 3 / ESP-IDF 5.1 Compatibility
 - Improved performance: can stream up to 20 lines per second is possible
+- Support custom page with `WSL_CUSTOM_PAGE`
 
 To add a logo, add a handler for `/logo` to serve your logo in the image format you want, gzipped or not.
 You can use the [ESP32 embedding mechanism](https://docs.platformio.org/en/latest/platforms/espressif32.html).
