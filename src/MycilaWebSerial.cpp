@@ -3,13 +3,7 @@
  * Copyright (C) 2023-2025 Mathieu Carbou
  */
 #include "MycilaWebSerial.h"
-
-#if WSL_DEFAULT_HTTP_HANDLER
-  #include "MycilaWebSerialPage.h"
-#endif
-
 #include <assert.h>
-
 #include <string>
 
 void WebSerial::setAuthentication(const char* username, const char* password) {
@@ -21,25 +15,30 @@ void WebSerial::setAuthentication(const char* username, const char* password) {
   }
 }
 
-void WebSerial::begin(AsyncWebServer* server, const char* url) {
+void WebSerial::begin(AsyncWebServer* server, const char* urlHtmlPage, const char* urlWebSocket) {
+  if (urlWebSocket == nullptr) {
+    return;
+  }
+
   _server = server;
-  _ws = new AsyncWebSocket(url);
+  _ws = new AsyncWebSocket(urlWebSocket);
 
   if (_authenticate) {
     _ws->setAuthentication(_username.c_str(), _password.c_str());
   }
 
-#if WSL_DEFAULT_HTTP_HANDLER
-  _server->on(url, HTTP_GET, [&](AsyncWebServerRequest* request) {
-    if (_authenticate) {
-      if (!request->authenticate(_username.c_str(), _password.c_str()))
-        return request->requestAuthentication();
-    }
-    AsyncWebServerResponse* response = request->beginResponse(200, "text/html", WEBSERIAL_HTML, sizeof(WEBSERIAL_HTML));
-    response->addHeader("Content-Encoding", "gzip");
-    request->send(response);
-  });
-#endif
+  if (urlHtmlPage != nullptr && _htmlPage != nullptr) {
+    _server->on(urlHtmlPage, HTTP_GET, [&](AsyncWebServerRequest* request) {
+      if (_authenticate) {
+        if (!request->authenticate(_username.c_str(), _password.c_str()))
+          return request->requestAuthentication();
+      }
+
+      AsyncWebServerResponse* response = request->beginResponse(200, "text/html", _htmlPage, _htmlPageSize);
+      response->addHeader("Content-Encoding", "gzip");
+      request->send(response);
+    });
+  }
 
   _ws->onEvent([&](__unused AsyncWebSocket* server, AsyncWebSocketClient* client, AwsEventType type, __unused void* arg, uint8_t* data, __unused size_t len) -> void {
     if (type == WS_EVT_CONNECT) {
@@ -62,6 +61,27 @@ void WebSerial::begin(AsyncWebServer* server, const char* url) {
 
   _server->addHandler(_ws);
 }
+
+#ifdef WSL_CUSTOM_PAGE
+bool WebSerial::setCustomHtmlPage(const uint8_t* ptr, size_t size) {
+  if (ptr == nullptr) {
+    return false;
+  }
+
+  _htmlPage = ptr;
+  _htmlPageSize = size;
+
+  return true;
+}
+
+bool WebSerial::setCustomHtmlPage(const char* ptr) {
+  if (ptr == nullptr) {
+    return false;
+  }
+
+  return setCustomHtmlPage((const uint8_t*)ptr, strlen(ptr));
+}
+#endif
 
 void WebSerial::onMessage(WSLMessageHandler recv) {
   _recv = recv;

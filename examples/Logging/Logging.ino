@@ -34,6 +34,11 @@ void setup() {
   Serial.print("IP Address: ");
   Serial.println(WiFi.softAPIP().toString());
 
+#ifdef WSL_CUSTOM_PAGE
+  const char* customHtmlPage = "Hello! This is a custom web page of webserial.";
+  webSerial.setCustomHtmlPage(customHtmlPage);
+#endif
+
   webSerial.onMessage([](const std::string& msg) { Serial.println(msg.c_str()); });
   webSerial.begin(&server);
   webSerial.setBuffer(100);
