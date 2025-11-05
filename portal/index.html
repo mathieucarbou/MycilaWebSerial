@@ -341,7 +341,7 @@
     function terminalWrite(raw) {
         if (enableTimestamp) {
             let now = new Date();
-            raw = "[" + now.toLocaleTimeString() + "] " + raw + "\n";
+            raw = "[" + now.toLocaleTimeString() + "] " + raw;
         }
         if (enableStripAnsiEscapeCodes && typeof raw == 'string') {
             raw = raw.replace(ansiRegex(), '');
