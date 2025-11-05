@@ -35,7 +35,10 @@ void WebSerial::begin(AsyncWebServer* server, const char* urlHtmlPage, const cha
       }
 
       AsyncWebServerResponse* response = request->beginResponse(200, "text/html", _htmlPage, _htmlPageSize);
-      response->addHeader("Content-Encoding", "gzip");
+      if (_htmlPageEncoding != nullptr) {
+        response->addHeader("Content-Encoding", _htmlPageEncoding);
+      }
+
       request->send(response);
     });
   }
@@ -63,23 +66,24 @@ void WebSerial::begin(AsyncWebServer* server, const char* urlHtmlPage, const cha
 }
 
 #ifdef WSL_CUSTOM_PAGE
-bool WebSerial::setCustomHtmlPage(const uint8_t* ptr, size_t size) {
+bool WebSerial::setCustomHtmlPage(const uint8_t* ptr, size_t size, const char* encoding) {
   if (ptr == nullptr) {
     return false;
   }
 
   _htmlPage = ptr;
   _htmlPageSize = size;
+  _htmlPageEncoding = encoding;
 
   return true;
 }
 
-bool WebSerial::setCustomHtmlPage(const char* ptr) {
+bool WebSerial::setCustomHtmlPage(const char* ptr, const char* encoding) {
   if (ptr == nullptr) {
     return false;
   }
 
-  return setCustomHtmlPage((const uint8_t*)ptr, strlen(ptr));
+  return setCustomHtmlPage((const uint8_t*)ptr, strlen(ptr), encoding);
 }
 #endif
 

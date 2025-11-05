@@ -43,8 +43,8 @@ class WebSerial : public Print {
   public:
     void begin(AsyncWebServer* server, const char* urlHtmlPage = "/webserial", const char* urlWebSocket = "/webserialws");
 #ifdef WSL_CUSTOM_PAGE
-    bool setCustomHtmlPage(const uint8_t* ptr, size_t size);
-    bool setCustomHtmlPage(const char* ptr);
+    bool setCustomHtmlPage(const uint8_t* ptr, size_t size, const char* encoding = nullptr);
+    bool setCustomHtmlPage(const char* ptr, const char* encoding = nullptr);
 #endif
     void setAuthentication(const char* username, const char* password);
     void onMessage(WSLMessageHandler recv);
@@ -96,9 +96,11 @@ class WebSerial : public Print {
 #ifdef WSL_CUSTOM_PAGE
     const uint8_t* _htmlPage = nullptr;
     size_t _htmlPageSize = 0;
+    const char* _htmlPageEncoding = nullptr;
 #else
     const uint8_t* _htmlPage = WEBSERIAL_HTML;
     size_t _htmlPageSize = WEBSERIAL_HTML_SIZE;
+    const char* _htmlPageEncoding = "gzip";
 #endif
     void _send(const uint8_t* buffer, size_t size);
 };
