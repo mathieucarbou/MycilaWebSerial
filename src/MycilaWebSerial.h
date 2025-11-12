@@ -17,6 +17,7 @@
 #include <ESPAsyncWebServer.h>
 #include <functional>
 #include <string>
+#include <utility>
 
 #define WSL_VERSION          "8.2.0"
 #define WSL_VERSION_MAJOR    8
@@ -46,7 +47,7 @@ class WebSerial : public Print {
     bool setCustomHtmlPage(const uint8_t* ptr, size_t size, const char* encoding = nullptr);
     bool setCustomHtmlPage(const char* ptr, const char* encoding = nullptr);
 #endif
-    void setAuthentication(const char* username, const char* password);
+    void setAuthentication(std::string username, std::string password);
     void onMessage(WSLMessageHandler recv);
     void onMessage(WSLStringMessageHandler recv);
     size_t write(uint8_t) override;

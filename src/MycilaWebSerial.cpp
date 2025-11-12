@@ -5,10 +5,11 @@
 #include "MycilaWebSerial.h"
 #include <assert.h>
 #include <string>
+#include <utility>
 
-void WebSerial::setAuthentication(const char* username, const char* password) {
-  _username = username;
-  _password = password;
+void WebSerial::setAuthentication(std::string username, std::string password) {
+  _username = std::move(username);
+  _password = std::move(password);
   _authenticate = !_username.empty() && !_password.empty();
   if (_ws) {
     _ws->setAuthentication(_username.c_str(), _password.c_str());
@@ -88,11 +89,11 @@ bool WebSerial::setCustomHtmlPage(const char* ptr, const char* encoding) {
 #endif
 
 void WebSerial::onMessage(WSLMessageHandler recv) {
-  _recv = recv;
+  _recv = std::move(recv);
 }
 
 void WebSerial::onMessage(WSLStringMessageHandler callback) {
-  _recvString = callback;
+  _recvString = std::move(callback);
   _recv = [&](uint8_t* data, size_t len) {
     if (data && len) {
       std::string msg;
