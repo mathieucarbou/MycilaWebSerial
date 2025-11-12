@@ -19,10 +19,10 @@
 #include <string>
 #include <utility>
 
-#define WSL_VERSION          "8.2.0"
+#define WSL_VERSION          "8.2.1"
 #define WSL_VERSION_MAJOR    8
 #define WSL_VERSION_MINOR    2
-#define WSL_VERSION_REVISION 0
+#define WSL_VERSION_REVISION 1
 
 #ifndef WSL_MAX_WS_CLIENTS
   #define WSL_MAX_WS_CLIENTS DEFAULT_MAX_WS_CLIENTS
