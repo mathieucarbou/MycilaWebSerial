@@ -23,7 +23,7 @@
     {
       "owner": "ESP32Async",
       "name": "ESPAsyncWebServer",
-      "version": "^3.8.1",
+      "version": "^3.9.0",
       "platforms": ["espressif8266", "espressif32"]
     }
   ],
