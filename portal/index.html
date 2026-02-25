@@ -274,7 +274,7 @@
             websocket.close();
             initWebSocket();
         }, 3000);
-        terminalWrite("[WebSerial] Connecting...");
+        terminalWrite("[WebSerial] Connecting ...");
         websocket = new WebSocket(gateway);
         websocket.onopen = onOpen;
         websocket.onclose = onClose;
@@ -315,7 +315,7 @@
 
     function onOpen(event) {
         clearTimeout(connectTimeout);
-        terminalWrite("[WebSerial] Connected...");
+        terminalWrite("[WebSerial] Connected successfully.");
         document.getElementById("command-button").disabled = false;
         document.getElementById("command-text").disabled = false;
     }
