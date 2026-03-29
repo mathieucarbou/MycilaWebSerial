@@ -347,6 +347,26 @@
             raw = raw.replace(ansiRegex(), '');
         }
         textArea.value += raw + "\n";
+
+        // When the terminal exceeds ~300KB (approx. 5,000 lines of 60 chars),
+        // it is pruned to ~240KB (approx. 4,000 lines) to prevent UI lag.
+        const maxChars = 300000;
+        const keepChars = 250000;
+
+        if (textArea.value.length > maxChars) {
+            const val = textArea.value;
+            const cutIndex = val.length - keepChars;
+
+            const nextLinePtr = val.indexOf('\n', cutIndex);
+            if (nextLinePtr !== -1) {
+                textArea.value = val.substring(nextLinePtr + 1);
+            } else {
+                textArea.value = val.substring(cutIndex);
+            }
+
+            console.log("Terminal cleaned: Buffer size was: ", val.length);
+        }
+
         if (!enableFlowLock) {
             textArea.scrollTop = textArea.scrollHeight;
         }
