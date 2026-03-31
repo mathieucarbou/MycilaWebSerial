@@ -348,8 +348,8 @@
         }
         textArea.value += raw + "\n";
 
-        // When the terminal exceeds ~300KB (approx. 5,000 lines of 60 chars),
-        // it is pruned to ~240KB (approx. 4,000 lines) to prevent UI lag.
+        // When the terminal exceeds ~300,000 characters (approx. 5,000 lines of 60 chars),
+        // it is pruned to ~250,000 characters (approx. 4,000 lines) to prevent UI lag.
         const maxChars = 300000;
         const keepChars = 250000;
 
