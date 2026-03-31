@@ -40,8 +40,8 @@ function addLineBreaks(buffer) {
         useShortDoctype: true,
         minifyCSS: true,
         minifyJS: true,
-        sortAttributes: true, // 不会改变生成的html长度 但会优化压缩后体积
-        sortClassName: true, // 不会改变生成的html长度 但会优化压缩后体积
+        sortAttributes: true, // It won't change the length of the generated HTML, but it will optimize the file size after compression.
+        sortClassName: true, // It won't change the length of the generated HTML, but it will optimize the file size after compression.
     });
     console.log(`[finalize.js] Minified index.html | Original Size: ${(indexHtml.length / 1024).toFixed(2) }KB | Minified Size: ${(indexHtmlMinify.length / 1024).toFixed(2) }KB`);
 
